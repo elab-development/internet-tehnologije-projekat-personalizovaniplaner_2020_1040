@@ -9,4 +9,8 @@ class Category extends Model
 {
     use HasFactory;
     protected $fillable = ['name'];
+
+    public function planers(){
+        return $this->hasMany(Planer::class);
+    }
 }
