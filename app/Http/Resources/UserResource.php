@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Resources;
-
+use App\Http\Resources\PlanerResource;
+use App\Models\Planer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
