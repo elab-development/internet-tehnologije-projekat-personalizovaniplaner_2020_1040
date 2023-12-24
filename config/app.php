@@ -144,6 +144,10 @@ return [
         // 'store' => 'redis',
     ],
 
+    'providers' => [
+        //...
+        Laravel\Sanctum\SanctumServiceProvider::class,
+    ],
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
