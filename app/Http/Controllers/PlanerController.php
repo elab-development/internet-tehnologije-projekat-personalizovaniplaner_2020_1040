@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 use App\Http\Resources\PlanerResource;
 use App\Models\Planer;
 use App\Models\User;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Laravel\Sanctum\Http\Controllers\CsrfCookieController;
 
 class PlanerController extends Controller
 {
@@ -30,7 +35,29 @@ class PlanerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'name'=>'required|string|max:255',
+            'page_number'=>'required|string|max:100',
+            'category_id'=>'required',
+            'body'=>'required|string|max:255'
+        ]);
+
+        if($validator->fails()){
+        return resposne()->json($validator->errors());
+        
+        }
+
+        $planer = Planer::create([
+        'name'=>$request->name,
+        'page_number'=>$request->page_number,
+        'category_id'=>$request->category_id,
+        'body'=>$request->body,
+        'user_id'=>Auth::user()->id
+        ]);
+
+        return response()->json([
+            'Planer is created successfully.', new PlanerResource($planer)
+        ]);
     }
 
     /**
@@ -54,7 +81,28 @@ class PlanerController extends Controller
      */
     public function update(Request $request, Planer $planer)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'name'=>'required|string|max:255',
+            'page_number'=>'required|string|max:100',
+            'category_id'=>'required',
+            'body'=>'required|string|max:255'
+        ]);
+
+        if($validator->fails())
+        return resposne()->json(
+               $validator->errors());
+
+
+        $planer->name = $request->name;
+        $planer->page_number = $request->page_number;
+        $planer->category_id = $request->category_id;
+        $planer->body = $request->body;
+        $planer->user_id = $request->user_id;
+        $planer->save();
+
+        return response()->json([
+            'Planer is updated successfully.', new PlanerResource($planer)
+        ]);
     }
 
     /**
@@ -62,6 +110,9 @@ class PlanerController extends Controller
      */
     public function destroy(Planer $planer)
     {
-        //
+        $planer->delete();
+        return response()->json([
+            'Planer is deleted successfully.'
+        ]);
     }
 }
