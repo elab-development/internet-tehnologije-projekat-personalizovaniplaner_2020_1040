@@ -17,6 +17,12 @@ return new class extends Migration
             $table->integer('page_number');
             $table->timestamps();
             $table->foreignId('category_id');
+            $table->string('image');
+            $table->integer('amount');
+            $table->string('price');
+            $table->string('size');
+            $table->string('notes');
+            $table->string('stickers');
         });
     }
 

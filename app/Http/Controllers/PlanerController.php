@@ -37,9 +37,16 @@ class PlanerController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'name'=>'required|string|max:255',
-            'page_number'=>'required|string|max:100',
+            'page_number'=>'string|max:100',
             'category_id'=>'required',
-            'body'=>'required|string|max:255'
+            'body'=>'required|string|max:255',
+            'image'=>'required',
+            'amount'=>'required',
+            'price'=>'required',
+            'size'=>'required',
+            'stickers'=>'required',
+            'notes'=>'string|max:100'
+
         ]);
 
         if($validator->fails()){
@@ -52,7 +59,13 @@ class PlanerController extends Controller
         'page_number'=>$request->page_number,
         'category_id'=>$request->category_id,
         'body'=>$request->body,
-        'user_id'=>Auth::user()->id
+        'user_id'=>Auth::user()->id,
+        'image'=>$request->image,
+        'amount'=>$request->amount,
+        'price'=>$request->price,
+        'size'=>$request->size,
+        'stickers'=>$request->stickers,
+        'notes'=>$request->notes
         ]);
 
         return response()->json([
@@ -83,9 +96,15 @@ class PlanerController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'name'=>'required|string|max:255',
-            'page_number'=>'required|string|max:100',
+            'page_number'=>'string|max:100',
             'category_id'=>'required',
-            'body'=>'required|string|max:255'
+            'body'=>'required|string|max:255',
+            'image'=>'required',
+            'amount'=>'required',
+            'price'=>'required',
+            'size'=>'required',
+            'stickers'=>'required',
+            'notes'=>'required'
         ]);
 
         if($validator->fails())
@@ -98,6 +117,12 @@ class PlanerController extends Controller
         $planer->category_id = $request->category_id;
         $planer->body = $request->body;
         $planer->user_id = $request->user_id;
+        $planer->image = $request->image;
+        $planer->amount = $request->amount;
+        $planer->price = $request->price;
+        $planer->size = $request->size;
+        $planer->stickers = $request->stickers;
+        $planer->notes = $request->notes;
         $planer->save();
 
         return response()->json([

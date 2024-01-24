@@ -25,8 +25,14 @@ class PlanerResource extends JsonResource
             'page_number'=>$this->resource->page_number,
             'body'=>$this->resource->body,
             'user'=>new UserResource($this->resource->user),
-            'category'=>$this->resource->category
- 
+            'category'=>$this->resource->category,
+            'image'=>$this->resource->image,
+            'amount'=>$this->resource->amount,
+            'price'=>$this->resource->price,
+            'size'=>$this->resource->size,
+            'stickers'=>$this->resource->stickers,
+            'notes'=>$this->resource->notes,
+
         ];
     }
 }
